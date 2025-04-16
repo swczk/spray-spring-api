@@ -1,0 +1,112 @@
+@URL=http://localhost:8080
+
+### Criar configuração inicial para testes ###
+
+### 1. Criar um usuário administrador
+POST {{URL}}/usuarios
+Content-Type: application/json
+
+{
+  "nome": "Admin Sistema",
+  "email": "admin@pulverizacao.com",
+  "senha": "senha123",
+  "role": "ADMIN"
+}
+
+### 2. Login para obter token JWT
+# @name login
+POST {{URL}}/login
+Content-Type: application/json
+
+{
+  "email": "admin@pulverizacao.com",
+  "senha": "senha123"
+}
+
+### Guardar o token para uso nas requisições seguintes
+@authToken = {{login.response.body.token}}
+
+### 3. Criar um talhão
+# @name criarTalhao
+POST {{URL}}/talhoes
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "nome": "Talhão Sul",
+  "areaHectares": 35.5,
+  "cultura": "Soja",
+  "variedade": "Intacta RR2 PRO",
+  "coordenadasGeograficas": "-25.2456,-51.3658"
+}
+
+### Guardar o ID do talhão criado
+@talhaoId = {{criarTalhao.response.body.id}}
+
+### 4. Criar um equipamento
+# @name criarEquipamento
+POST {{URL}}/equipamentos
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "nome": "Pulverizador Autopropelido",
+  "modelo": "Uniport 3030",
+  "fabricante": "Jacto",
+  "anoFabricacao": 2023,
+  "larguraBarra": 30.0,
+  "capacidadeTanque": 3000.0,
+  "numeroSerie": "JAC2023001"
+}
+
+### Guardar o ID do equipamento criado
+@equipamentoId = {{criarEquipamento.response.body.id}}
+
+### 5. Criar um tipo de aplicação
+# @name criarTipoAplicacao
+POST {{URL}}/tipos-aplicacao
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "nome": "Herbicida Pós-Emergente",
+  "descricao": "Aplicação de herbicida após a emergência da cultura",
+  "vazaoPadrao": 150.0,
+  "tipoProduto": "Herbicida",
+  "unidadeMedida": "L/ha"
+}
+
+### Guardar o ID do tipo de aplicação criado
+@tipoAplicacaoId = {{criarTipoAplicacao.response.body.id}}
+
+### 6. Criar uma aplicação
+POST {{URL}}/aplicacoes
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "talhao": {
+    "id": "{{talhaoId}}"
+  },
+  "equipamento": {
+    "id": "{{equipamentoId}}"
+  },
+  "tipoAplicacao": {
+    "id": "{{tipoAplicacaoId}}"
+  },
+  "dataInicio": "2025-04-16T10:30:00",
+  "dosagem": 2.5,
+  "operador": "João Silva",
+  "condicaoClimatica": "Ensolarado, vento leve",
+  "observacoes": "Aplicação realizada conforme recomendação técnica"
+}
+
+### 7. Buscar todas as aplicações
+GET {{URL}}/aplicacoes?page=0&size=10
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+### 8. Buscar aplicações por talhão
+GET {{URL}}/aplicacoes/talhao/{{talhaoId}}?page=0&size=10
+Content-Type: application/json
+Authorization: Bearer {{authToken}}

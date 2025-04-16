@@ -1,0 +1,44 @@
+@URL=http://localhost:8080
+
+### Listar todos os tipos de aplicação (paginado)
+GET {{URL}}/tipos-aplicacao?page=0&size=10
+Content-Type: application/json
+
+### Obter tipo de aplicação por ID
+GET {{URL}}/tipos-aplicacao/550e8400-e29b-41d4-a716-446655440000
+Content-Type: application/json
+
+### Criar tipo de aplicação
+POST {{URL}}/tipos-aplicacao
+Content-Type: application/json
+
+{
+  "nome": "Herbicida Pós-Emergente",
+  "descricao": "Aplicação de herbicida após a emergência da cultura",
+  "vazaoPadrao": 150.0,
+  "tipoProduto": "Herbicida",
+  "unidadeMedida": "L/ha"
+}
+
+### Atualizar tipo de aplicação
+PUT {{URL}}/tipos-aplicacao/550e8400-e29b-41d4-a716-446655440000
+Content-Type: application/json
+
+{
+  "nome": "Herbicida Pós-Emergente Atualizado",
+  "descricao": "Aplicação de herbicida após a emergência da cultura",
+  "vazaoPadrao": 180.0,
+  "tipoProduto": "Herbicida",
+  "unidadeMedida": "L/ha"
+}
+
+### Excluir tipo de aplicação
+DELETE {{URL}}/tipos-aplicacao/550e8400-e29b-41d4-a716-446655440000
+
+### Buscar tipos de aplicação por nome
+GET {{URL}}/tipos-aplicacao/nome/herbicida?page=0&size=10
+Content-Type: application/json
+
+### Buscar tipos de aplicação por tipo de produto
+GET {{URL}}/tipos-aplicacao/tipo-produto/Herbicida?page=0&size=10
+Content-Type: application/json

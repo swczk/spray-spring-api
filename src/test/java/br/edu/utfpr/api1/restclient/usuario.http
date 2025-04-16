@@ -1,0 +1,64 @@
+@URL=http://localhost:8080
+
+### Listar todos os usuários (paginado)
+GET {{URL}}/usuarios?page=0&size=10
+Content-Type: application/json
+
+### Obter usuário por ID
+GET {{URL}}/usuarios/550e8400-e29b-41d4-a716-446655440000
+Content-Type: application/json
+
+### Criar usuário
+POST {{URL}}/usuarios
+Content-Type: application/json
+
+{
+  "nome": "Admin Sistema",
+  "email": "admin@pulverizacao.com",
+  "senha": "senha123",
+  "role": "ADMIN"
+}
+
+### Criar usuário técnico
+POST {{URL}}/usuarios
+Content-Type: application/json
+
+{
+  "nome": "Carlos Técnico",
+  "email": "carlos@pulverizacao.com",
+  "senha": "senha123",
+  "role": "TECNICO"
+}
+
+### Criar usuário operador
+POST {{URL}}/usuarios
+Content-Type: application/json
+
+{
+  "nome": "Pedro Operador",
+  "email": "pedro@pulverizacao.com",
+  "senha": "senha123",
+  "role": "OPERADOR"
+}
+
+### Atualizar usuário
+PUT {{URL}}/usuarios/550e8400-e29b-41d4-a716-446655440000
+Content-Type: application/json
+
+{
+  "nome": "Admin Sistema Atualizado",
+  "email": "admin@pulverizacao.com",
+  "senha": "senha123",
+  "role": "ADMIN"
+}
+
+### Excluir usuário
+DELETE {{URL}}/usuarios/550e8400-e29b-41d4-a716-446655440000
+
+### Desativar usuário
+PUT {{URL}}/usuarios/550e8400-e29b-41d4-a716-446655440000/desativar
+Content-Type: application/json
+
+### Ativar usuário
+PUT {{URL}}/usuarios/550e8400-e29b-41d4-a716-446655440000/ativar
+Content-Type: application/json

@@ -1,0 +1,75 @@
+@URL=http://localhost:8080
+
+### Listar todas as aplicações (paginado)
+GET {{URL}}/aplicacoes?page=0&size=10
+Content-Type: application/json
+
+### Obter aplicação por ID
+GET {{URL}}/aplicacoes/550e8400-e29b-41d4-a716-446655440000
+Content-Type: application/json
+
+### Criar aplicação
+POST {{URL}}/aplicacoes
+Content-Type: application/json
+
+{
+  "talhao": {
+    "id": "550e8400-e29b-41d4-a716-446655440000"
+  },
+  "equipamento": {
+    "id": "550e8400-e29b-41d4-a716-446655440001"
+  },
+  "tipoAplicacao": {
+    "id": "550e8400-e29b-41d4-a716-446655440002"
+  },
+  "dataInicio": "2025-04-15T08:30:00",
+  "dosagem": 2.5,
+  "operador": "João Silva",
+  "condicaoClimatica": "Ensolarado, vento leve",
+  "observacoes": "Aplicação realizada conforme recomendação técnica"
+}
+
+### Atualizar aplicação
+PUT {{URL}}/aplicacoes/550e8400-e29b-41d4-a716-446655440000
+Content-Type: application/json
+
+{
+  "talhao": {
+    "id": "550e8400-e29b-41d4-a716-446655440000"
+  },
+  "equipamento": {
+    "id": "550e8400-e29b-41d4-a716-446655440001"
+  },
+  "tipoAplicacao": {
+    "id": "550e8400-e29b-41d4-a716-446655440002"
+  },
+  "dataInicio": "2025-04-15T08:30:00",
+  "dosagem": 3.0,
+  "volumeAplicado": 150.0,
+  "operador": "João Silva",
+  "condicaoClimatica": "Ensolarado, vento moderado",
+  "observacoes": "Ajuste na dosagem devido à infestação mais alta que o previsto"
+}
+
+### Excluir aplicação
+DELETE {{URL}}/aplicacoes/550e8400-e29b-41d4-a716-446655440000
+
+### Buscar aplicações por talhão
+GET {{URL}}/aplicacoes/talhao/550e8400-e29b-41d4-a716-446655440000?page=0&size=10
+Content-Type: application/json
+
+### Buscar aplicações por equipamento
+GET {{URL}}/aplicacoes/equipamento/550e8400-e29b-41d4-a716-446655440001?page=0&size=10
+Content-Type: application/json
+
+### Buscar aplicações por tipo de aplicação
+GET {{URL}}/aplicacoes/tipo-aplicacao/550e8400-e29b-41d4-a716-446655440002?page=0&size=10
+Content-Type: application/json
+
+### Buscar aplicações por status (finalizadas)
+GET {{URL}}/aplicacoes/finalizada/true?page=0&size=10
+Content-Type: application/json
+
+### Finalizar uma aplicação
+PUT {{URL}}/aplicacoes/550e8400-e29b-41d4-a716-446655440000/finalizar
+Content-Type: application/json

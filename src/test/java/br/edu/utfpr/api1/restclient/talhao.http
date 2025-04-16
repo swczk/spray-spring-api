@@ -1,0 +1,44 @@
+@URL=http://localhost:8080
+
+### Listar todos os talhões (paginado)
+GET {{URL}}/talhoes?page=0&size=10
+Content-Type: application/json
+
+### Obter talhão por ID
+GET {{URL}}/talhoes/550e8400-e29b-41d4-a716-446655440000
+Content-Type: application/json
+
+### Criar talhão
+POST {{URL}}/talhoes
+Content-Type: application/json
+
+{
+  "nome": "Talhão Norte",
+  "areaHectares": 25.75,
+  "cultura": "Soja",
+  "variedade": "Intacta RR2 PRO",
+  "coordenadasGeograficas": "-25.2456,-51.3658"
+}
+
+### Atualizar talhão
+PUT {{URL}}/talhoes/550e8400-e29b-41d4-a716-446655440000
+Content-Type: application/json
+
+{
+  "nome": "Talhão Norte Atualizado",
+  "areaHectares": 27.5,
+  "cultura": "Milho",
+  "variedade": "BT PRO 3",
+  "coordenadasGeograficas": "-25.2456,-51.3658"
+}
+
+### Excluir talhão
+DELETE {{URL}}/talhoes/550e8400-e29b-41d4-a716-446655440000
+
+### Buscar talhões por nome
+GET {{URL}}/talhoes/nome/norte?page=0&size=10
+Content-Type: application/json
+
+### Buscar talhões por cultura
+GET {{URL}}/talhoes/cultura/Soja?page=0&size=10
+Content-Type: application/json

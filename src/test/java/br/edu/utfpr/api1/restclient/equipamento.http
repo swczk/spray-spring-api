@@ -1,0 +1,52 @@
+@URL=http://localhost:8080
+
+### Listar todos os equipamentos (paginado)
+GET {{URL}}/equipamentos?page=0&size=10
+Content-Type: application/json
+
+### Obter equipamento por ID
+GET {{URL}}/equipamentos/550e8400-e29b-41d4-a716-446655440000
+Content-Type: application/json
+
+### Criar equipamento
+POST {{URL}}/equipamentos
+Content-Type: application/json
+
+{
+  "nome": "Pulverizador Autopropelido",
+  "modelo": "Uniport 3030",
+  "fabricante": "Jacto",
+  "anoFabricacao": 2023,
+  "larguraBarra": 30.0,
+  "capacidadeTanque": 3000.0,
+  "numeroSerie": "JAC2023001"
+}
+
+### Atualizar equipamento
+PUT {{URL}}/equipamentos/550e8400-e29b-41d4-a716-446655440000
+Content-Type: application/json
+
+{
+  "nome": "Pulverizador Autopropelido Atualizado",
+  "modelo": "Uniport 3030",
+  "fabricante": "Jacto",
+  "anoFabricacao": 2023,
+  "larguraBarra": 32.0,
+  "capacidadeTanque": 3000.0,
+  "numeroSerie": "JAC2023001"
+}
+
+### Excluir equipamento
+DELETE {{URL}}/equipamentos/550e8400-e29b-41d4-a716-446655440000
+
+### Buscar equipamentos por nome
+GET {{URL}}/equipamentos/nome/pulverizador?page=0&size=10
+Content-Type: application/json
+
+### Buscar equipamentos por fabricante
+GET {{URL}}/equipamentos/fabricante/Jacto?page=0&size=10
+Content-Type: application/json
+
+### Buscar equipamentos por modelo
+GET {{URL}}/equipamentos/modelo/Uniport%203030?page=0&size=10
+Content-Type: application/json
