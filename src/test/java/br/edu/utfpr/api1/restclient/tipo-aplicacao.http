@@ -1,16 +1,22 @@
-@URL=http://localhost:8080
+@localUrl = {{$dotenv localUrl}}
+@host = {{localUrl}}
+@token = {{$dotenv token}}
+@ID = 83c1d2d8-6e81-49e5-9c9b-94d3d884f6ce
 
-### Listar todos os tipos de aplicação (paginado)
-GET {{URL}}/tipos-aplicacao?page=0&size=10
+### Listar todos os tipos de aplicação (paginado) BUG
+GET {{host}}/tipos-aplicacao?page=0&size=10
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
-### Obter tipo de aplicação por ID
-GET {{URL}}/tipos-aplicacao/550e8400-e29b-41d4-a716-446655440000
+### Obter tipo de aplicação por ID BUG
+GET {{host}}/tipos-aplicacao/{{ID}}
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Criar tipo de aplicação
-POST {{URL}}/tipos-aplicacao
+POST {{host}}/tipos-aplicacao
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "nome": "Herbicida Pós-Emergente",
@@ -20,9 +26,10 @@ Content-Type: application/json
   "unidadeMedida": "L/ha"
 }
 
-### Atualizar tipo de aplicação
-PUT {{URL}}/tipos-aplicacao/550e8400-e29b-41d4-a716-446655440000
+### Atualizar tipo de aplicação BUG
+PUT {{host}}/tipos-aplicacao/{{ID}}
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "nome": "Herbicida Pós-Emergente Atualizado",
@@ -33,12 +40,15 @@ Content-Type: application/json
 }
 
 ### Excluir tipo de aplicação
-DELETE {{URL}}/tipos-aplicacao/550e8400-e29b-41d4-a716-446655440000
+DELETE {{host}}/tipos-aplicacao/{{ID}}
+Authorization: Bearer {{token}}
 
-### Buscar tipos de aplicação por nome
-GET {{URL}}/tipos-aplicacao/nome/herbicida?page=0&size=10
+### Buscar tipos de aplicação por nome BUG
+GET {{host}}/tipos-aplicacao/nome/herbicida?page=0&size=10
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
-### Buscar tipos de aplicação por tipo de produto
-GET {{URL}}/tipos-aplicacao/tipo-produto/Herbicida?page=0&size=10
+### Buscar tipos de aplicação por tipo de produto BUG
+GET {{host}}/tipos-aplicacao/tipo-produto/Herbicida?page=0&size=10
 Content-Type: application/json
+Authorization: Bearer {{token}}

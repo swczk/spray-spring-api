@@ -1,16 +1,22 @@
-@URL=http://localhost:8080
+@localUrl = {{$dotenv localUrl}}
+@host = {{localUrl}}
+@token = {{$dotenv token}}
+@ID =
 
 ### Listar todas as aplicações (paginado)
-GET {{URL}}/aplicacoes?page=0&size=10
+GET {{host}}/aplicacoes?page=0&size=10
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Obter aplicação por ID
-GET {{URL}}/aplicacoes/550e8400-e29b-41d4-a716-446655440000
+GET {{host}}/aplicacoes/550e8400-e29b-41d4-a716-446655440000
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Criar aplicação
-POST {{URL}}/aplicacoes
+POST {{host}}/aplicacoes
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "talhao": {
@@ -30,8 +36,9 @@ Content-Type: application/json
 }
 
 ### Atualizar aplicação
-PUT {{URL}}/aplicacoes/550e8400-e29b-41d4-a716-446655440000
+PUT {{host}}/aplicacoes/550e8400-e29b-41d4-a716-446655440000
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "talhao": {
@@ -52,24 +59,30 @@ Content-Type: application/json
 }
 
 ### Excluir aplicação
-DELETE {{URL}}/aplicacoes/550e8400-e29b-41d4-a716-446655440000
+DELETE {{host}}/aplicacoes/550e8400-e29b-41d4-a716-446655440000
+Authorization: Bearer {{token}}
 
 ### Buscar aplicações por talhão
-GET {{URL}}/aplicacoes/talhao/550e8400-e29b-41d4-a716-446655440000?page=0&size=10
+GET {{host}}/aplicacoes/talhao/550e8400-e29b-41d4-a716-446655440000?page=0&size=10
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Buscar aplicações por equipamento
-GET {{URL}}/aplicacoes/equipamento/550e8400-e29b-41d4-a716-446655440001?page=0&size=10
+GET {{host}}/aplicacoes/equipamento/550e8400-e29b-41d4-a716-446655440001?page=0&size=10
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Buscar aplicações por tipo de aplicação
-GET {{URL}}/aplicacoes/tipo-aplicacao/550e8400-e29b-41d4-a716-446655440002?page=0&size=10
+GET {{host}}/aplicacoes/tipo-aplicacao/550e8400-e29b-41d4-a716-446655440002?page=0&size=10
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Buscar aplicações por status (finalizadas)
-GET {{URL}}/aplicacoes/finalizada/true?page=0&size=10
+GET {{host}}/aplicacoes/finalizada/true?page=0&size=10
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Finalizar uma aplicação
-PUT {{URL}}/aplicacoes/550e8400-e29b-41d4-a716-446655440000/finalizar
+PUT {{host}}/aplicacoes/550e8400-e29b-41d4-a716-446655440000/finalizar
 Content-Type: application/json
+Authorization: Bearer {{token}}

@@ -1,16 +1,22 @@
-@URL=http://localhost:8080
+@localUrl = {{$dotenv localUrl}}
+@host = {{localUrl}}
+@token = {{$dotenv token}}
+@ID = af91011f-9246-45e6-bbff-2cdc29430623
 
-### Listar todos os talhões (paginado)
-GET {{URL}}/talhoes?page=0&size=10
+### Listar todos os talhões (paginado) BUG
+GET {{host}}/talhoes?page=0&size=10
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
-### Obter talhão por ID
-GET {{URL}}/talhoes/550e8400-e29b-41d4-a716-446655440000
+### Obter talhão por ID BUG
+GET {{host}}/talhoes/{{ID}}
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Criar talhão
-POST {{URL}}/talhoes
+POST {{host}}/talhoes
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "nome": "Talhão Norte",
@@ -20,9 +26,10 @@ Content-Type: application/json
   "coordenadasGeograficas": "-25.2456,-51.3658"
 }
 
-### Atualizar talhão
-PUT {{URL}}/talhoes/550e8400-e29b-41d4-a716-446655440000
+### Atualizar talhão BUG
+PUT {{host}}/talhoes/{{ID}}
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "nome": "Talhão Norte Atualizado",
@@ -33,12 +40,15 @@ Content-Type: application/json
 }
 
 ### Excluir talhão
-DELETE {{URL}}/talhoes/550e8400-e29b-41d4-a716-446655440000
+DELETE {{host}}/talhoes/{{ID}}
+Authorization: Bearer {{token}}
 
-### Buscar talhões por nome
-GET {{URL}}/talhoes/nome/norte?page=0&size=10
+### Buscar talhões por nome BUG
+GET {{host}}/talhoes/nome/norte?page=0&size=10
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Buscar talhões por cultura
-GET {{URL}}/talhoes/cultura/Soja?page=0&size=10
+GET {{host}}/talhoes/cultura/Soja?page=0&size=10
 Content-Type: application/json
+Authorization: Bearer {{token}}

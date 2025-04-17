@@ -1,7 +1,9 @@
-@URL=http://localhost:8080
+@localUrl = {{$dotenv localUrl}}
+@host = {{localUrl}}
+@token = {{$dotenv token}}
 
 ### Login
-POST {{URL}}/login
+POST {{host}}/login
 Content-Type: application/json
 
 {
@@ -10,6 +12,6 @@ Content-Type: application/json
 }
 
 ### Teste de endpoint protegido (com JWT)
-GET {{URL}}/aplicacoes
+GET {{host}}/aplicacoes
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NTBlODQwMC1lMjliLTQxZDQtYTcxNi00NDY2NTU0NDAwMDAiLCJyb2xlIjoiQURNSU4iLCJleHAiOjE2MTkyODMyOTF9.ejemplo-token
+Authorization: Bearer {{token}}

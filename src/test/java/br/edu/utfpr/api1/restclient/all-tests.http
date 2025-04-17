@@ -1,9 +1,10 @@
-@URL=http://localhost:8080
+@localUrl = {{$dotenv localUrl}}
+@host = {{localUrl}}
 
 ### Criar configuração inicial para testes ###
 
 ### 1. Criar um usuário administrador
-POST {{URL}}/usuarios
+POST {{host}}/usuarios
 Content-Type: application/json
 
 {
@@ -15,7 +16,7 @@ Content-Type: application/json
 
 ### 2. Login para obter token JWT
 # @name login
-POST {{URL}}/login
+POST {{host}}/login
 Content-Type: application/json
 
 {
@@ -28,7 +29,7 @@ Content-Type: application/json
 
 ### 3. Criar um talhão
 # @name criarTalhao
-POST {{URL}}/talhoes
+POST {{host}}/talhoes
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
@@ -45,7 +46,7 @@ Authorization: Bearer {{authToken}}
 
 ### 4. Criar um equipamento
 # @name criarEquipamento
-POST {{URL}}/equipamentos
+POST {{host}}/equipamentos
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
@@ -64,7 +65,7 @@ Authorization: Bearer {{authToken}}
 
 ### 5. Criar um tipo de aplicação
 # @name criarTipoAplicacao
-POST {{URL}}/tipos-aplicacao
+POST {{host}}/tipos-aplicacao
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
@@ -80,7 +81,7 @@ Authorization: Bearer {{authToken}}
 @tipoAplicacaoId = {{criarTipoAplicacao.response.body.id}}
 
 ### 6. Criar uma aplicação
-POST {{URL}}/aplicacoes
+POST {{host}}/aplicacoes
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
@@ -102,11 +103,11 @@ Authorization: Bearer {{authToken}}
 }
 
 ### 7. Buscar todas as aplicações
-GET {{URL}}/aplicacoes?page=0&size=10
+GET {{host}}/aplicacoes?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 ### 8. Buscar aplicações por talhão
-GET {{URL}}/aplicacoes/talhao/{{talhaoId}}?page=0&size=10
+GET {{host}}/aplicacoes/talhao/{{talhaoId}}?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{authToken}}

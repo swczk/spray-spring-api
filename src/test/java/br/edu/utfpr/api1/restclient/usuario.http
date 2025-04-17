@@ -1,16 +1,22 @@
-@URL=http://localhost:8080
+@localUrl = {{$dotenv localUrl}}
+@host = {{localUrl}}
+@token = {{$dotenv token}}
+@ID =
 
 ### Listar todos os usuários (paginado)
-GET {{URL}}/usuarios?page=0&size=10
+GET {{host}}/usuarios?page=0&size=10
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Obter usuário por ID
-GET {{URL}}/usuarios/550e8400-e29b-41d4-a716-446655440000
+GET {{host}}/usuarios/{{ID}}
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Criar usuário
-POST {{URL}}/usuarios
+POST {{host}}/usuarios
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "nome": "Admin Sistema",
@@ -20,8 +26,9 @@ Content-Type: application/json
 }
 
 ### Criar usuário técnico
-POST {{URL}}/usuarios
+POST {{host}}/usuarios
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "nome": "Carlos Técnico",
@@ -31,8 +38,9 @@ Content-Type: application/json
 }
 
 ### Criar usuário operador
-POST {{URL}}/usuarios
+POST {{host}}/usuarios
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "nome": "Pedro Operador",
@@ -42,8 +50,9 @@ Content-Type: application/json
 }
 
 ### Atualizar usuário
-PUT {{URL}}/usuarios/550e8400-e29b-41d4-a716-446655440000
+PUT {{host}}/usuarios/{{ID}}
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "nome": "Admin Sistema Atualizado",
@@ -53,12 +62,15 @@ Content-Type: application/json
 }
 
 ### Excluir usuário
-DELETE {{URL}}/usuarios/550e8400-e29b-41d4-a716-446655440000
+DELETE {{host}}/usuarios/{{ID}}
+Authorization: Bearer {{token}}
 
 ### Desativar usuário
-PUT {{URL}}/usuarios/550e8400-e29b-41d4-a716-446655440000/desativar
+PUT {{host}}/usuarios/{{ID}}/desativar
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Ativar usuário
-PUT {{URL}}/usuarios/550e8400-e29b-41d4-a716-446655440000/ativar
+PUT {{host}}/usuarios/{{ID}}/ativar
 Content-Type: application/json
+Authorization: Bearer {{token}}

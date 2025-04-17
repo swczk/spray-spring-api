@@ -1,16 +1,22 @@
-@URL=http://localhost:8080
+@localUrl = {{$dotenv localUrl}}
+@host = {{localUrl}}
+@token = {{$dotenv token}}
+@ID = 2e4d4c33-fe60-424b-a1c6-0ebaf43208e7
 
-### Listar todos os equipamentos (paginado)
-GET {{URL}}/equipamentos?page=0&size=10
+### Listar todos os equipamentos (paginado) BUG
+GET {{host}}/equipamentos?page=0&size=10
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
-### Obter equipamento por ID
-GET {{URL}}/equipamentos/550e8400-e29b-41d4-a716-446655440000
+### Obter equipamento por ID BUG
+GET {{host}}/equipamentos/{{ID}}
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Criar equipamento
-POST {{URL}}/equipamentos
+POST {{host}}/equipamentos
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "nome": "Pulverizador Autopropelido",
@@ -22,9 +28,10 @@ Content-Type: application/json
   "numeroSerie": "JAC2023001"
 }
 
-### Atualizar equipamento
-PUT {{URL}}/equipamentos/550e8400-e29b-41d4-a716-446655440000
+### Atualizar equipamento BUG
+PUT {{host}}/equipamentos/{{ID}}
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "nome": "Pulverizador Autopropelido Atualizado",
@@ -37,16 +44,20 @@ Content-Type: application/json
 }
 
 ### Excluir equipamento
-DELETE {{URL}}/equipamentos/550e8400-e29b-41d4-a716-446655440000
+DELETE {{host}}/equipamentos/{{ID}}
+Authorization: Bearer {{token}}
 
-### Buscar equipamentos por nome
-GET {{URL}}/equipamentos/nome/pulverizador?page=0&size=10
+### Buscar equipamentos por nome BUG
+GET {{host}}/equipamentos/nome/pulverizador?page=0&size=10
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
-### Buscar equipamentos por fabricante
-GET {{URL}}/equipamentos/fabricante/Jacto?page=0&size=10
+### Buscar equipamentos por fabricante BUG
+GET {{host}}/equipamentos/fabricante/Jacto?page=0&size=10
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
-### Buscar equipamentos por modelo
-GET {{URL}}/equipamentos/modelo/Uniport%203030?page=0&size=10
+### Buscar equipamentos por modelo BUG
+GET {{host}}/equipamentos/modelo/Uniport%203030?page=0&size=10
 Content-Type: application/json
+Authorization: Bearer {{token}}
