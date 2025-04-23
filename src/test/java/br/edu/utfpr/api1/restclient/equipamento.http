@@ -1,14 +1,14 @@
 @localUrl = {{$dotenv localUrl}}
 @host = {{localUrl}}
 @token = {{$dotenv token}}
-@ID = 2e4d4c33-fe60-424b-a1c6-0ebaf43208e7
+@ID = 
 
-### Listar todos os equipamentos (paginado) BUG
+### Listar todos os equipamentos (paginado)
 GET {{host}}/equipamentos?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
-### Obter equipamento por ID BUG
+### Obter equipamento por ID
 GET {{host}}/equipamentos/{{ID}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -28,7 +28,7 @@ Authorization: Bearer {{token}}
   "numeroSerie": "JAC2023001"
 }
 
-### Atualizar equipamento BUG
+### Atualizar equipamento
 PUT {{host}}/equipamentos/{{ID}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -47,17 +47,17 @@ Authorization: Bearer {{token}}
 DELETE {{host}}/equipamentos/{{ID}}
 Authorization: Bearer {{token}}
 
-### Buscar equipamentos por nome BUG
+### Buscar equipamentos por nome
 GET {{host}}/equipamentos/nome/pulverizador?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
-### Buscar equipamentos por fabricante BUG
+### Buscar equipamentos por fabricante
 GET {{host}}/equipamentos/fabricante/Jacto?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
-### Buscar equipamentos por modelo BUG
+### Buscar equipamentos por modelo
 GET {{host}}/equipamentos/modelo/Uniport%203030?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}

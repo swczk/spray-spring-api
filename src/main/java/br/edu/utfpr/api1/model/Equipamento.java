@@ -13,6 +13,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "equipamentos")
 @Data
@@ -43,5 +45,6 @@ public class Equipamento extends BaseEntity {
     private String numeroSerie;
 
     @OneToMany(mappedBy = "equipamento")
+    @JsonIgnore
     private List<Aplicacao> aplicacoes = new ArrayList<>();
 }
