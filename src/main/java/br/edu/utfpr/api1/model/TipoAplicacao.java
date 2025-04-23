@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tipos_aplicacao")
 @Data
@@ -36,5 +38,6 @@ public class TipoAplicacao extends BaseEntity {
     private String unidadeMedida;
 
     @OneToMany(mappedBy = "tipoAplicacao")
+    @JsonIgnore
     private List<Aplicacao> aplicacoes = new ArrayList<>();
 }

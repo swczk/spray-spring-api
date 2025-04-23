@@ -1,14 +1,14 @@
 @localUrl = {{$dotenv localUrl}}
 @host = {{localUrl}}
 @token = {{$dotenv token}}
-@ID = 83c1d2d8-6e81-49e5-9c9b-94d3d884f6ce
+@ID = 
 
-### Listar todos os tipos de aplicação (paginado) BUG
+### Listar todos os tipos de aplicação (paginado)
 GET {{host}}/tipos-aplicacao?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
-### Obter tipo de aplicação por ID BUG
+### Obter tipo de aplicação por ID
 GET {{host}}/tipos-aplicacao/{{ID}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -26,7 +26,7 @@ Authorization: Bearer {{token}}
   "unidadeMedida": "L/ha"
 }
 
-### Atualizar tipo de aplicação BUG
+### Atualizar tipo de aplicação
 PUT {{host}}/tipos-aplicacao/{{ID}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -43,12 +43,12 @@ Authorization: Bearer {{token}}
 DELETE {{host}}/tipos-aplicacao/{{ID}}
 Authorization: Bearer {{token}}
 
-### Buscar tipos de aplicação por nome BUG
+### Buscar tipos de aplicação por nome
 GET {{host}}/tipos-aplicacao/nome/herbicida?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
-### Buscar tipos de aplicação por tipo de produto BUG
+### Buscar tipos de aplicação por tipo de produto
 GET {{host}}/tipos-aplicacao/tipo-produto/Herbicida?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}
