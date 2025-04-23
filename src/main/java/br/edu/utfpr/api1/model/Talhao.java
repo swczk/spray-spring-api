@@ -13,6 +13,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "talhoes")
 @Data
@@ -37,5 +39,6 @@ public class Talhao extends BaseEntity {
     private String coordenadasGeograficas;
 
     @OneToMany(mappedBy = "talhao")
+    @JsonIgnore
     private List<Aplicacao> aplicacoes = new ArrayList<>();
 }

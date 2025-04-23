@@ -1,14 +1,14 @@
 @localUrl = {{$dotenv localUrl}}
 @host = {{localUrl}}
 @token = {{$dotenv token}}
-@ID = af91011f-9246-45e6-bbff-2cdc29430623
+@ID = 
 
-### Listar todos os talhões (paginado) BUG
+### Listar todos os talhões (paginado)
 GET {{host}}/talhoes?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
-### Obter talhão por ID BUG
+### Obter talhão por ID
 GET {{host}}/talhoes/{{ID}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -26,7 +26,7 @@ Authorization: Bearer {{token}}
   "coordenadasGeograficas": "-25.2456,-51.3658"
 }
 
-### Atualizar talhão BUG
+### Atualizar talhão
 PUT {{host}}/talhoes/{{ID}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -43,7 +43,7 @@ Authorization: Bearer {{token}}
 DELETE {{host}}/talhoes/{{ID}}
 Authorization: Bearer {{token}}
 
-### Buscar talhões por nome BUG
+### Buscar talhões por nome
 GET {{host}}/talhoes/nome/norte?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}
