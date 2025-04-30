@@ -2,11 +2,12 @@ package br.edu.utfpr.api1.controller;
 
 import br.edu.utfpr.api1.model.Equipamento;
 import br.edu.utfpr.api1.repository.EquipamentoRepository;
+import jakarta.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -34,12 +35,12 @@ public class EquipamentoController {
 
     @PostMapping({ "", "/" })
     @ResponseStatus(HttpStatus.CREATED)
-    public Equipamento create(@Validated @RequestBody Equipamento equipamento) {
+    public Equipamento create(@Valid @RequestBody Equipamento equipamento) {
         return equipamentoRepository.save(equipamento);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Equipamento> update(@PathVariable UUID id, @Validated @RequestBody Equipamento equipamento) {
+    public ResponseEntity<Equipamento> update(@PathVariable UUID id, @Valid @RequestBody Equipamento equipamento) {
         if (!equipamentoRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }

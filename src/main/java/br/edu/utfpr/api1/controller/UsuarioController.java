@@ -3,11 +3,12 @@ package br.edu.utfpr.api1.controller;
 import br.edu.utfpr.api1.dto.UsuarioStatusDto;
 import br.edu.utfpr.api1.model.Usuario;
 import br.edu.utfpr.api1.repository.UsuarioRepository;
+import jakarta.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -35,7 +36,7 @@ public class UsuarioController {
 
     @PostMapping({ "", "/" })
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Usuario> create(@Validated @RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> create(@Valid @RequestBody Usuario usuario) {
         // Verificar se já existe um usuário com o mesmo email
         if (usuarioRepository.existsByEmail(usuario.getEmail())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
@@ -47,7 +48,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> update(@PathVariable UUID id, @Validated @RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> update(@PathVariable UUID id, @Valid @RequestBody Usuario usuario) {
         if (!usuarioRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
@@ -79,7 +80,7 @@ public class UsuarioController {
     @PatchMapping("/{id}/status")
     public ResponseEntity<Usuario> updateStatus(
             @PathVariable UUID id,
-            @Validated @RequestBody UsuarioStatusDto statusDto) {
+            @Valid @RequestBody UsuarioStatusDto statusDto) {
 
         return usuarioRepository.findById(id)
                 .map(usuario -> {

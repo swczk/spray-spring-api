@@ -2,11 +2,12 @@ package br.edu.utfpr.api1.controller;
 
 import br.edu.utfpr.api1.model.Talhao;
 import br.edu.utfpr.api1.repository.TalhaoRepository;
+import jakarta.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -34,12 +35,12 @@ public class TalhaoController {
 
     @PostMapping({ "", "/" })
     @ResponseStatus(HttpStatus.CREATED)
-    public Talhao create(@Validated @RequestBody Talhao talhao) {
+    public Talhao create(@Valid @RequestBody Talhao talhao) {
         return talhaoRepository.save(talhao);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Talhao> update(@PathVariable UUID id, @Validated @RequestBody Talhao talhao) {
+    public ResponseEntity<Talhao> update(@PathVariable UUID id, @Valid @RequestBody Talhao talhao) {
         if (!talhaoRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }

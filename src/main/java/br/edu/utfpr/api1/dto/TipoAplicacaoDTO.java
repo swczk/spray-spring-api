@@ -1,5 +1,7 @@
 package br.edu.utfpr.api1.dto;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class TipoAplicacaoDTO {
     @NotBlank(message = "Campo 'nome' é obrigatório")
     private String nome;

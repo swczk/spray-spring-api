@@ -2,11 +2,12 @@ package br.edu.utfpr.api1.controller;
 
 import br.edu.utfpr.api1.model.TipoAplicacao;
 import br.edu.utfpr.api1.repository.TipoAplicacaoRepository;
+import jakarta.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -34,13 +35,13 @@ public class TipoAplicacaoController {
 
     @PostMapping({ "", "/" })
     @ResponseStatus(HttpStatus.CREATED)
-    public TipoAplicacao create(@Validated @RequestBody TipoAplicacao tipoAplicacao) {
+    public TipoAplicacao create(@Valid @RequestBody TipoAplicacao tipoAplicacao) {
         return tipoAplicacaoRepository.save(tipoAplicacao);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<TipoAplicacao> update(@PathVariable UUID id,
-            @Validated @RequestBody TipoAplicacao tipoAplicacao) {
+            @Valid @RequestBody TipoAplicacao tipoAplicacao) {
         if (!tipoAplicacaoRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }

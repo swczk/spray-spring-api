@@ -6,11 +6,12 @@ import br.edu.utfpr.api1.repository.AplicacaoRepository;
 import br.edu.utfpr.api1.repository.EquipamentoRepository;
 import br.edu.utfpr.api1.repository.TalhaoRepository;
 import br.edu.utfpr.api1.repository.TipoAplicacaoRepository;
+import jakarta.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -49,7 +50,7 @@ public class AplicacaoController {
 
     @PostMapping({ "", "/" })
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Aplicacao> create(@Validated @RequestBody Aplicacao aplicacao) {
+    public ResponseEntity<Aplicacao> create(@Valid @RequestBody Aplicacao aplicacao) {
         // Verificar se os IDs das entidades relacionadas existem
         if (aplicacao.getTalhao() != null && aplicacao.getTalhao().getId() != null) {
             if (!talhaoRepository.existsById(aplicacao.getTalhao().getId())) {
@@ -73,7 +74,7 @@ public class AplicacaoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Aplicacao> update(@PathVariable UUID id, @Validated @RequestBody Aplicacao aplicacao) {
+    public ResponseEntity<Aplicacao> update(@PathVariable UUID id, @Valid @RequestBody Aplicacao aplicacao) {
         if (!aplicacaoRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
@@ -139,7 +140,7 @@ public class AplicacaoController {
     @PatchMapping("/{id}/status")
     public ResponseEntity<Aplicacao> updateStatus(
             @PathVariable UUID id,
-            @Validated @RequestBody AplicacaoStatusDTO statusDto) {
+            @Valid @RequestBody AplicacaoStatusDTO statusDto) {
 
         return aplicacaoRepository.findById(id)
                 .map(aplicacao -> {
