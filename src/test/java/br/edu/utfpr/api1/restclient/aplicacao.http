@@ -1,22 +1,11 @@
 @localUrl = {{$dotenv localUrl}}
 @host = {{localUrl}}
 @token = {{$dotenv token}}
-@ID =
-
-### Listar todas as aplicações (paginado)
-GET {{host}}/aplicacoes?page=0&size=10
-Content-Type: application/json
-Authorization: Bearer {{token}}
-
-### Obter aplicação por ID
-GET {{host}}/aplicacoes/550e8400-e29b-41d4-a716-446655440000
-Content-Type: application/json
-Authorization: Bearer {{token}}
 
 ### Criar aplicação
+# @name criarAplicacao
 POST {{host}}/aplicacoes
 Content-Type: application/json
-Authorization: Bearer {{token}}
 
 {
   "talhao": {
@@ -35,8 +24,19 @@ Authorization: Bearer {{token}}
   "observacoes": "Aplicação realizada conforme recomendação técnica"
 }
 
+### Guardar o ID da aplicação criado
+@aplicacaoId = {{criarAplicacao.response.body.id}}
+
+### Listar todas as aplicações (paginado)
+GET {{host}}/aplicacoes?page=0&size=10
+Content-Type: application/json
+
+### Obter aplicação por ID
+GET {{host}}/aplicacoes/{{aplicacaoId}}
+Content-Type: application/json
+
 ### Atualizar aplicação
-PUT {{host}}/aplicacoes/550e8400-e29b-41d4-a716-446655440000
+PUT {{host}}/aplicacoes/{{aplicacaoId}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -59,7 +59,7 @@ Authorization: Bearer {{token}}
 }
 
 ### Excluir aplicação
-DELETE {{host}}/aplicacoes/550e8400-e29b-41d4-a716-446655440000
+DELETE {{host}}/aplicacoes/{{aplicacaoId}}
 Authorization: Bearer {{token}}
 
 ### Buscar aplicações por talhão
@@ -83,6 +83,10 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Finalizar uma aplicação
-PUT {{host}}/aplicacoes/550e8400-e29b-41d4-a716-446655440000/finalizar
+PATCH  {{host}}/aplicacoes/{{aplicacaoId}}/status
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+{
+  "finalizada": true
+}

@@ -1,19 +1,9 @@
 @localUrl = {{$dotenv localUrl}}
 @host = {{localUrl}}
 @token = {{$dotenv token}}
-@ID = 
-
-### Listar todos os talhões (paginado)
-GET {{host}}/talhoes?page=0&size=10
-Content-Type: application/json
-Authorization: Bearer {{token}}
-
-### Obter talhão por ID
-GET {{host}}/talhoes/{{ID}}
-Content-Type: application/json
-Authorization: Bearer {{token}}
 
 ### Criar talhão
+# @name criarTalhao
 POST {{host}}/talhoes
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -26,8 +16,21 @@ Authorization: Bearer {{token}}
   "coordenadasGeograficas": "-25.2456,-51.3658"
 }
 
+### Guardar o ID do talhão criado
+@talhaoId = {{criarTalhao.response.body.id}}
+
+### Listar todos os talhões (paginado)
+GET {{host}}/talhoes?page=0&size=10
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Obter talhão por ID
+GET {{host}}/talhoes/{{talhaoId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
 ### Atualizar talhão
-PUT {{host}}/talhoes/{{ID}}
+PUT {{host}}/talhoes/{{talhaoId}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -40,7 +43,7 @@ Authorization: Bearer {{token}}
 }
 
 ### Excluir talhão
-DELETE {{host}}/talhoes/{{ID}}
+DELETE {{host}}/talhoes/{{talhaoId}}
 Authorization: Bearer {{token}}
 
 ### Buscar talhões por nome

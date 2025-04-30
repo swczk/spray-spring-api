@@ -1,19 +1,9 @@
 @localUrl = {{$dotenv localUrl}}
 @host = {{localUrl}}
 @token = {{$dotenv token}}
-@ID = 
-
-### Listar todos os equipamentos (paginado)
-GET {{host}}/equipamentos?page=0&size=10
-Content-Type: application/json
-Authorization: Bearer {{token}}
-
-### Obter equipamento por ID
-GET {{host}}/equipamentos/{{ID}}
-Content-Type: application/json
-Authorization: Bearer {{token}}
 
 ### Criar equipamento
+# @name criarEquipamento
 POST {{host}}/equipamentos
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -28,8 +18,21 @@ Authorization: Bearer {{token}}
   "numeroSerie": "JAC2023001"
 }
 
+### Guardar o ID do equipamento criado
+@equipamentoId = {{criarEquipamento.response.body.id}}
+
+### Listar todos os equipamentos (paginado)
+GET {{host}}/equipamentos?page=0&size=10
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Obter equipamento por ID
+GET {{host}}/equipamentos/{{equipamentoId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
 ### Atualizar equipamento
-PUT {{host}}/equipamentos/{{ID}}
+PUT {{host}}/equipamentos/{{equipamentoId}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -44,7 +47,7 @@ Authorization: Bearer {{token}}
 }
 
 ### Excluir equipamento
-DELETE {{host}}/equipamentos/{{ID}}
+DELETE {{host}}/equipamentos/{{equipamentoId}}
 Authorization: Bearer {{token}}
 
 ### Buscar equipamentos por nome
