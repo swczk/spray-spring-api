@@ -1,17 +1,6 @@
 @localUrl = {{$dotenv localUrl}}
 @host = {{localUrl}}
 @token = {{$dotenv token}}
-@ID =
-
-### Listar todos os usuários (paginado)
-GET {{host}}/usuarios?page=0&size=10
-Content-Type: application/json
-Authorization: Bearer {{token}}
-
-### Obter usuário por ID
-GET {{host}}/usuarios/{{ID}}
-Content-Type: application/json
-Authorization: Bearer {{token}}
 
 ### Criar usuário
 # @name criarAdmin
@@ -28,6 +17,11 @@ Authorization: Bearer {{token}}
 
 ### Guardar o ID do Admin criado
 @adminId = {{criarAdmin.response.body.id}}
+
+### Obter usuário por ID
+GET {{host}}/usuarios/{{adminId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Criar usuário técnico
 # @name criarTecnico
@@ -58,7 +52,7 @@ Authorization: Bearer {{token}}
 }
 
 ### Atualizar usuário
-PUT {{host}}/usuarios/{{{{adminId}}}}
+PUT {{host}}/usuarios/{{adminId}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -69,12 +63,17 @@ Authorization: Bearer {{token}}
   "role": "ADMIN"
 }
 
+### Listar todos os usuários (paginado)
+GET {{host}}/usuarios?page=0&size=10
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
 ### Excluir usuário
 DELETE {{host}}/usuarios/{{adminId}}
 Authorization: Bearer {{token}}
 
 ### Desativar usuário
-PATCH {{host}}/usuarios/{{{{tecnicoId}}}}/status
+PATCH {{host}}/usuarios/{{tecnicoId}}/status
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
