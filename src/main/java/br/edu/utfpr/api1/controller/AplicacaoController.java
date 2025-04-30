@@ -1,5 +1,6 @@
 package br.edu.utfpr.api1.controller;
 
+import br.edu.utfpr.api1.dto.AplicacaoStatusDTO;
 import br.edu.utfpr.api1.model.Aplicacao;
 import br.edu.utfpr.api1.repository.AplicacaoRepository;
 import br.edu.utfpr.api1.repository.EquipamentoRepository;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -26,15 +28,14 @@ public class AplicacaoController {
             AplicacaoRepository aplicacaoRepository,
             TalhaoRepository talhaoRepository,
             EquipamentoRepository equipamentoRepository,
-            TipoAplicacaoRepository tipoAplicacaoRepository
-    ) {
+            TipoAplicacaoRepository tipoAplicacaoRepository) {
         this.aplicacaoRepository = aplicacaoRepository;
         this.talhaoRepository = talhaoRepository;
         this.equipamentoRepository = equipamentoRepository;
         this.tipoAplicacaoRepository = tipoAplicacaoRepository;
     }
 
-    @GetMapping({"", "/"})
+    @GetMapping({ "", "/" })
     public Page<Aplicacao> getAll(Pageable pageable) {
         return aplicacaoRepository.findAll(pageable);
     }
@@ -46,7 +47,7 @@ public class AplicacaoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping({"", "/"})
+    @PostMapping({ "", "/" })
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Aplicacao> create(@RequestBody Aplicacao aplicacao) {
         // Verificar se os IDs das entidades relacionadas existem
@@ -135,12 +136,19 @@ public class AplicacaoController {
         return aplicacaoRepository.findByFinalizada(finalizada, pageable);
     }
 
-    @PutMapping("/{id}/finalizar")
-    public ResponseEntity<Aplicacao> finalizarAplicacao(@PathVariable UUID id) {
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<Aplicacao> updateStatus(
+            @PathVariable UUID id,
+            @Validated @RequestBody AplicacaoStatusDTO statusDto) {
+
         return aplicacaoRepository.findById(id)
                 .map(aplicacao -> {
-                    aplicacao.setFinalizada(true);
-                    aplicacao.setDataFim(LocalDateTime.now());
+                    aplicacao.setFinalizada(statusDto.getFinalizada());
+
+                    if (statusDto.getFinalizada()) {
+                        aplicacao.setDataFim(LocalDateTime.now());
+                    }
+
                     return ResponseEntity.ok(aplicacaoRepository.save(aplicacao));
                 })
                 .orElse(ResponseEntity.notFound().build());

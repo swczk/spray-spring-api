@@ -1,11 +1,13 @@
 package br.edu.utfpr.api1.controller;
 
+import br.edu.utfpr.api1.dto.UsuarioStatusDto;
 import br.edu.utfpr.api1.model.Usuario;
 import br.edu.utfpr.api1.repository.UsuarioRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -74,21 +76,14 @@ public class UsuarioController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}/ativar")
-    public ResponseEntity<Usuario> ativar(@PathVariable UUID id) {
-        return usuarioRepository.findById(id)
-                .map(usuario -> {
-                    usuario.setAtivo(true);
-                    return ResponseEntity.ok(usuarioRepository.save(usuario));
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<Usuario> updateStatus(
+            @PathVariable UUID id,
+            @Validated @RequestBody UsuarioStatusDto statusDto) {
 
-    @PutMapping("/{id}/desativar")
-    public ResponseEntity<Usuario> desativar(@PathVariable UUID id) {
         return usuarioRepository.findById(id)
                 .map(usuario -> {
-                    usuario.setAtivo(false);
+                    usuario.setAtivo(statusDto.getAtivo());
                     return ResponseEntity.ok(usuarioRepository.save(usuario));
                 })
                 .orElse(ResponseEntity.notFound().build());

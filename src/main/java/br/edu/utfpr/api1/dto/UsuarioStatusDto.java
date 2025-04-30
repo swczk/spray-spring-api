@@ -9,6 +9,3 @@ import lombok.Data;
 public class UsuarioStatusDto {
     private Boolean ativo;
 }
-
-
-
