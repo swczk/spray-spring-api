@@ -90,3 +90,12 @@ Authorization: Bearer {{token}}
 {
   "finalizada": true
 }
+
+### Finalizar uma aplicação
+PATCH  {{host}}/aplicacoes/{{aplicacaoId}}/status
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "finalizada": false
+}

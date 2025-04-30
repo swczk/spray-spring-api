@@ -14,6 +14,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Criar usuário
+# @name criarAdmin
 POST {{host}}/usuarios
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -25,7 +26,11 @@ Authorization: Bearer {{token}}
   "role": "ADMIN"
 }
 
+### Guardar o ID do Admin criado
+@adminId = {{criarAdmin.response.body.id}}
+
 ### Criar usuário técnico
+# @name criarTecnico
 POST {{host}}/usuarios
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -36,6 +41,9 @@ Authorization: Bearer {{token}}
   "senha": "senha123",
   "role": "TECNICO"
 }
+
+### Guardar o ID do Tecnico criado
+@tecnicoId = {{criarTecnico.response.body.id}}
 
 ### Criar usuário operador
 POST {{host}}/usuarios
@@ -50,7 +58,7 @@ Authorization: Bearer {{token}}
 }
 
 ### Atualizar usuário
-PUT {{host}}/usuarios/{{ID}}
+PUT {{host}}/usuarios/{{{{adminId}}}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -62,15 +70,23 @@ Authorization: Bearer {{token}}
 }
 
 ### Excluir usuário
-DELETE {{host}}/usuarios/{{ID}}
+DELETE {{host}}/usuarios/{{adminId}}
 Authorization: Bearer {{token}}
 
 ### Desativar usuário
-PUT {{host}}/usuarios/{{ID}}/desativar
+PATCH {{host}}/usuarios/{{{{tecnicoId}}}}/status
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
+{
+  "ativo": false
+}
+
 ### Ativar usuário
-PUT {{host}}/usuarios/{{ID}}/ativar
+PATCH {{host}}/usuarios/{{tecnicoId}}/status
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+{
+  "ativo": true
+}
