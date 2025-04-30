@@ -49,7 +49,7 @@ public class AplicacaoController {
 
     @PostMapping({ "", "/" })
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Aplicacao> create(@RequestBody Aplicacao aplicacao) {
+    public ResponseEntity<Aplicacao> create(@Validated @RequestBody Aplicacao aplicacao) {
         // Verificar se os IDs das entidades relacionadas existem
         if (aplicacao.getTalhao() != null && aplicacao.getTalhao().getId() != null) {
             if (!talhaoRepository.existsById(aplicacao.getTalhao().getId())) {
@@ -73,7 +73,7 @@ public class AplicacaoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Aplicacao> update(@PathVariable UUID id, @RequestBody Aplicacao aplicacao) {
+    public ResponseEntity<Aplicacao> update(@PathVariable UUID id, @Validated @RequestBody Aplicacao aplicacao) {
         if (!aplicacaoRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -19,7 +20,7 @@ public class EquipamentoController {
         this.equipamentoRepository = equipamentoRepository;
     }
 
-    @GetMapping({"", "/"})
+    @GetMapping({ "", "/" })
     public Page<Equipamento> getAll(Pageable pageable) {
         return equipamentoRepository.findAll(pageable);
     }
@@ -31,14 +32,14 @@ public class EquipamentoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping({"", "/"})
+    @PostMapping({ "", "/" })
     @ResponseStatus(HttpStatus.CREATED)
-    public Equipamento create(@RequestBody Equipamento equipamento) {
+    public Equipamento create(@Validated @RequestBody Equipamento equipamento) {
         return equipamentoRepository.save(equipamento);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Equipamento> update(@PathVariable UUID id, @RequestBody Equipamento equipamento) {
+    public ResponseEntity<Equipamento> update(@PathVariable UUID id, @Validated @RequestBody Equipamento equipamento) {
         if (!equipamentoRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }

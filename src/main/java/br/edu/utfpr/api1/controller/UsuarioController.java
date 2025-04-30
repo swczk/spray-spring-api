@@ -35,7 +35,7 @@ public class UsuarioController {
 
     @PostMapping({ "", "/" })
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Usuario> create(@RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> create(@Validated @RequestBody Usuario usuario) {
         // Verificar se já existe um usuário com o mesmo email
         if (usuarioRepository.existsByEmail(usuario.getEmail())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
@@ -47,7 +47,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> update(@PathVariable UUID id, @RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> update(@PathVariable UUID id, @Validated @RequestBody Usuario usuario) {
         if (!usuarioRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }

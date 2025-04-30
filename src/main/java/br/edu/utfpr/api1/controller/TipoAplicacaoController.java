@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -19,7 +20,7 @@ public class TipoAplicacaoController {
         this.tipoAplicacaoRepository = tipoAplicacaoRepository;
     }
 
-    @GetMapping({"", "/"})
+    @GetMapping({ "", "/" })
     public Page<TipoAplicacao> getAll(Pageable pageable) {
         return tipoAplicacaoRepository.findAll(pageable);
     }
@@ -31,14 +32,15 @@ public class TipoAplicacaoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping({"", "/"})
+    @PostMapping({ "", "/" })
     @ResponseStatus(HttpStatus.CREATED)
-    public TipoAplicacao create(@RequestBody TipoAplicacao tipoAplicacao) {
+    public TipoAplicacao create(@Validated @RequestBody TipoAplicacao tipoAplicacao) {
         return tipoAplicacaoRepository.save(tipoAplicacao);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TipoAplicacao> update(@PathVariable UUID id, @RequestBody TipoAplicacao tipoAplicacao) {
+    public ResponseEntity<TipoAplicacao> update(@PathVariable UUID id,
+            @Validated @RequestBody TipoAplicacao tipoAplicacao) {
         if (!tipoAplicacaoRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
