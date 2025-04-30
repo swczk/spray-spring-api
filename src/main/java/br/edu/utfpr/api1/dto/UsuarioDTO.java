@@ -1,8 +1,5 @@
 package br.edu.utfpr.api1.dto;
 
-import org.springframework.beans.BeanUtils;
-
-import br.edu.utfpr.api1.model.Usuario;
 import br.edu.utfpr.api1.model.Usuario.Role;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -29,5 +26,3 @@ public class UsuarioDTO {
    @NotBlank(message = "Campo 'ativo' é obrigatório")
    private Boolean ativo;
 }
-
-

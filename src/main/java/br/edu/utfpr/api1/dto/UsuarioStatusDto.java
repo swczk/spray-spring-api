@@ -1,6 +1,5 @@
 package br.edu.utfpr.api1.dto;
 
-import jakarta.annotation.Nonnull;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
