@@ -20,7 +20,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @SecurityRequirement(name = "bearerAuth")
 @Tag(name = "Usuário", description = "endpoints de usuários")
-@RequestMapping(value = "/usuarios", produces = "application/json")
+@RequestMapping(value = "/api/usuarios", produces = "application/json")
 public class UsuarioController {
     private final UsuarioRepository usuarioRepository;
 
@@ -88,7 +88,7 @@ public class UsuarioController {
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "Atualizar o status de um usuário",description = "Atualizar o status de um usuário (ativo/inativo) pelo ID.")  
+    @Operation(summary = "Atualizar o status de um usuário",description = "Atualizar o status de um usuário (ativo/inativo) pelo ID.")
     @PatchMapping("/{id}/status")
     public ResponseEntity<Usuario> updateStatus(
             @PathVariable UUID id,

@@ -24,7 +24,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 @RestController
 @SecurityRequirement(name = "bearerAuth")
 @Tag(name = "Aplicação", description = "endpoints de aplicações")
-@RequestMapping(value = "/aplicacoes", produces = "application/json")
+@RequestMapping(value = "/api/aplicacoes", produces = "application/json")
 public class AplicacaoController {
     private final AplicacaoRepository aplicacaoRepository;
     private final TalhaoRepository talhaoRepository;
@@ -48,7 +48,7 @@ public class AplicacaoController {
         return aplicacaoRepository.findAll(pageable);
     }
 
-    
+
     @Operation(summary = "Buscar aplicação por ID", description = "Retorna uma aplicação específica pelo ID.")
     @GetMapping("/{id}")
     public ResponseEntity<Aplicacao> getById(@PathVariable UUID id) {

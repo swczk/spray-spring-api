@@ -4,7 +4,7 @@
 
 ### Criar tipo de aplicação
 # @name criarTipoAplicacao
-POST {{host}}/tipos-aplicacao
+POST {{host}}/api/tipos-aplicacao
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -20,17 +20,17 @@ Authorization: Bearer {{token}}
 @tipoAplicacaoId = {{criarTipoAplicacao.response.body.id}}
 
 ### Listar todos os tipos de aplicação (paginado)
-GET {{host}}/tipos-aplicacao?page=0&size=10
+GET {{host}}/api/tipos-aplicacao?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Obter tipo de aplicação por ID
-GET {{host}}/tipos-aplicacao/{{tipoAplicacaoId}}
+GET {{host}}/api/tipos-aplicacao/{{tipoAplicacaoId}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Atualizar tipo de aplicação
-PUT {{host}}/tipos-aplicacao/{{tipoAplicacaoId}}
+PUT {{host}}/api/tipos-aplicacao/{{tipoAplicacaoId}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -43,15 +43,15 @@ Authorization: Bearer {{token}}
 }
 
 ### Excluir tipo de aplicação
-DELETE {{host}}/tipos-aplicacao/{{tipoAplicacaoId}}
+DELETE {{host}}/api/tipos-aplicacao/{{tipoAplicacaoId}}
 Authorization: Bearer {{token}}
 
 ### Buscar tipos de aplicação por nome
-GET {{host}}/tipos-aplicacao/nome/herbicida?page=0&size=10
+GET {{host}}/api/tipos-aplicacao/nome/herbicida?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Buscar tipos de aplicação por tipo de produto
-GET {{host}}/tipos-aplicacao/tipo-produto/Herbicida?page=0&size=10
+GET {{host}}/api/tipos-aplicacao/tipo-produto/Herbicida?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}

@@ -4,7 +4,7 @@
 
 ### Criar talhão
 # @name criarTalhao
-POST {{host}}/talhoes
+POST {{host}}/api/talhoes
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -20,17 +20,17 @@ Authorization: Bearer {{token}}
 @talhaoId = {{criarTalhao.response.body.id}}
 
 ### Listar todos os talhões (paginado)
-GET {{host}}/talhoes?page=0&size=10
+GET {{host}}/api/talhoes?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Obter talhão por ID
-GET {{host}}/talhoes/{{talhaoId}}
+GET {{host}}/api/talhoes/{{talhaoId}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Atualizar talhão
-PUT {{host}}/talhoes/{{talhaoId}}
+PUT {{host}}/api/talhoes/{{talhaoId}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -43,15 +43,15 @@ Authorization: Bearer {{token}}
 }
 
 ### Excluir talhão
-DELETE {{host}}/talhoes/{{talhaoId}}
+DELETE {{host}}/api/talhoes/{{talhaoId}}
 Authorization: Bearer {{token}}
 
 ### Buscar talhões por nome
-GET {{host}}/talhoes/nome/norte?page=0&size=10
+GET {{host}}/api/talhoes/nome/norte?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Buscar talhões por cultura
-GET {{host}}/talhoes/cultura/Soja?page=0&size=10
+GET {{host}}/api/talhoes/cultura/Soja?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}

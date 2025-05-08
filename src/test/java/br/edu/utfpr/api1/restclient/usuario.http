@@ -4,7 +4,7 @@
 
 ### Criar usuário
 # @name criarAdmin
-POST {{host}}/usuarios
+POST {{host}}/api/usuarios
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -19,13 +19,13 @@ Authorization: Bearer {{token}}
 @adminId = {{criarAdmin.response.body.id}}
 
 ### Obter usuário por ID
-GET {{host}}/usuarios/{{adminId}}
+GET {{host}}/api/usuarios/{{adminId}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Criar usuário técnico
 # @name criarTecnico
-POST {{host}}/usuarios
+POST {{host}}/api/usuarios
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -40,7 +40,7 @@ Authorization: Bearer {{token}}
 @tecnicoId = {{criarTecnico.response.body.id}}
 
 ### Criar usuário operador
-POST {{host}}/usuarios
+POST {{host}}/api/usuarios
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -52,7 +52,7 @@ Authorization: Bearer {{token}}
 }
 
 ### Atualizar usuário
-PUT {{host}}/usuarios/{{adminId}}
+PUT {{host}}/api/usuarios/{{adminId}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -64,16 +64,16 @@ Authorization: Bearer {{token}}
 }
 
 ### Listar todos os usuários (paginado)
-GET {{host}}/usuarios?page=0&size=10
+GET {{host}}/api/usuarios?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Excluir usuário
-DELETE {{host}}/usuarios/{{adminId}}
+DELETE {{host}}/api/usuarios/{{adminId}}
 Authorization: Bearer {{token}}
 
 ### Desativar usuário
-PATCH {{host}}/usuarios/{{tecnicoId}}/status
+PATCH {{host}}/api/usuarios/{{tecnicoId}}/status
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -82,7 +82,7 @@ Authorization: Bearer {{token}}
 }
 
 ### Ativar usuário
-PATCH {{host}}/usuarios/{{tecnicoId}}/status
+PATCH {{host}}/api/usuarios/{{tecnicoId}}/status
 Content-Type: application/json
 Authorization: Bearer {{token}}
 

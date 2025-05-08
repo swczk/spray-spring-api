@@ -18,7 +18,7 @@ import java.util.UUID;
 @RestController
 @SecurityRequirement(name = "bearerAuth")
 @Tag(name = "Equipamento", description = "endpoints de equipamentos")
-@RequestMapping(value = "/equipamentos", produces = "application/json")
+@RequestMapping(value = "/api/equipamentos", produces = "application/json")
 public class EquipamentoController {
     private final EquipamentoRepository equipamentoRepository;
 

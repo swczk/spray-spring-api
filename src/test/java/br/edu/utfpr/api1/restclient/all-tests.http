@@ -4,7 +4,7 @@
 ### Criar configuração inicial para testes ###
 
 ### 1. Criar um usuário administrador
-POST {{host}}/usuarios
+POST {{host}}/api/usuarios
 Content-Type: application/json
 
 {
@@ -20,8 +20,8 @@ POST {{host}}/login
 Content-Type: application/json
 
 {
-  "email": "admin@pulverizacao.com",
-  "senha": "senha123"
+  "email": "pedrosawczuk@proton.me",
+  "senha": "qVbuHNDk3a*z$!pkCr&h"
 }
 
 ### Guardar o token para uso nas requisições seguintes
@@ -29,7 +29,7 @@ Content-Type: application/json
 
 ### 3. Criar um talhão
 # @name criarTalhao
-POST {{host}}/talhoes
+POST {{host}}/api/talhoes
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
@@ -46,7 +46,7 @@ Authorization: Bearer {{authToken}}
 
 ### 4. Criar um equipamento
 # @name criarEquipamento
-POST {{host}}/equipamentos
+POST {{host}}/api/equipamentos
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
@@ -65,7 +65,7 @@ Authorization: Bearer {{authToken}}
 
 ### 5. Criar um tipo de aplicação
 # @name criarTipoAplicacao
-POST {{host}}/tipos-aplicacao
+POST {{host}}/api/tipos-aplicacao
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
@@ -81,7 +81,7 @@ Authorization: Bearer {{authToken}}
 @tipoAplicacaoId = {{criarTipoAplicacao.response.body.id}}
 
 ### 6. Criar uma aplicação
-POST {{host}}/aplicacoes
+POST {{host}}/api/aplicacoes
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
@@ -103,11 +103,11 @@ Authorization: Bearer {{authToken}}
 }
 
 ### 7. Buscar todas as aplicações
-GET {{host}}/aplicacoes?page=0&size=10
+GET {{host}}/api/aplicacoes?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 ### 8. Buscar aplicações por talhão
-GET {{host}}/aplicacoes/talhao/{{talhaoId}}?page=0&size=10
+GET {{host}}/api/aplicacoes/talhao/{{talhaoId}}?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{authToken}}

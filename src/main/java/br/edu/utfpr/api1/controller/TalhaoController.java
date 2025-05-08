@@ -18,7 +18,7 @@ import java.util.UUID;
 @RestController
 @SecurityRequirement(name = "bearerAuth")
 @Tag(name = "Talhão", description = "endpoints de talhões")
-@RequestMapping(value = "/talhoes", produces = "application/json")
+@RequestMapping(value = "/api/talhoes", produces = "application/json")
 public class TalhaoController {
     private final TalhaoRepository talhaoRepository;
 
@@ -39,7 +39,7 @@ public class TalhaoController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-    
+
     @Operation(summary = "Criar talhão", description = "Cria um novo talhão.")
     @PostMapping({ "", "/" })
     @ResponseStatus(HttpStatus.CREATED)

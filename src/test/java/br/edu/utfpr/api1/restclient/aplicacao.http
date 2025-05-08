@@ -4,7 +4,7 @@
 
 ### Criar aplicação
 # @name criarAplicacao
-POST {{host}}/aplicacoes
+POST {{host}}/api/aplicacoes
 Content-Type: application/json
 
 {
@@ -28,15 +28,15 @@ Content-Type: application/json
 @aplicacaoId = {{criarAplicacao.response.body.id}}
 
 ### Listar todas as aplicações (paginado)
-GET {{host}}/aplicacoes?page=0&size=10
+GET {{host}}/api/aplicacoes?page=0&size=10
 Content-Type: application/json
 
 ### Obter aplicação por ID
-GET {{host}}/aplicacoes/{{aplicacaoId}}
+GET {{host}}/api/aplicacoes/{{aplicacaoId}}
 Content-Type: application/json
 
 ### Atualizar aplicação
-PUT {{host}}/aplicacoes/{{aplicacaoId}}
+PUT {{host}}/api/aplicacoes/{{aplicacaoId}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -59,31 +59,31 @@ Authorization: Bearer {{token}}
 }
 
 ### Excluir aplicação
-DELETE {{host}}/aplicacoes/{{aplicacaoId}}
+DELETE {{host}}/api/aplicacoes/{{aplicacaoId}}
 Authorization: Bearer {{token}}
 
 ### Buscar aplicações por talhão
-GET {{host}}/aplicacoes/talhao/550e8400-e29b-41d4-a716-446655440000?page=0&size=10
+GET {{host}}/api/aplicacoes/talhao/550e8400-e29b-41d4-a716-446655440000?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Buscar aplicações por equipamento
-GET {{host}}/aplicacoes/equipamento/550e8400-e29b-41d4-a716-446655440001?page=0&size=10
+GET {{host}}/api/aplicacoes/equipamento/550e8400-e29b-41d4-a716-446655440001?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Buscar aplicações por tipo de aplicação
-GET {{host}}/aplicacoes/tipo-aplicacao/550e8400-e29b-41d4-a716-446655440002?page=0&size=10
+GET {{host}}/api/aplicacoes/tipo-aplicacao/550e8400-e29b-41d4-a716-446655440002?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Buscar aplicações por status (finalizadas)
-GET {{host}}/aplicacoes/finalizada/true?page=0&size=10
+GET {{host}}/api/aplicacoes/finalizada/true?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Finalizar uma aplicação
-PATCH  {{host}}/aplicacoes/{{aplicacaoId}}/status
+PATCH  {{host}}/api/aplicacoes/{{aplicacaoId}}/status
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -92,7 +92,7 @@ Authorization: Bearer {{token}}
 }
 
 ### Finalizar uma aplicação
-PATCH  {{host}}/aplicacoes/{{aplicacaoId}}/status
+PATCH  {{host}}/api/aplicacoes/{{aplicacaoId}}/status
 Content-Type: application/json
 Authorization: Bearer {{token}}
 

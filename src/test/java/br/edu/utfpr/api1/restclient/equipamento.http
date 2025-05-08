@@ -4,7 +4,7 @@
 
 ### Criar equipamento
 # @name criarEquipamento
-POST {{host}}/equipamentos
+POST {{host}}/api/equipamentos
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -22,17 +22,17 @@ Authorization: Bearer {{token}}
 @equipamentoId = {{criarEquipamento.response.body.id}}
 
 ### Listar todos os equipamentos (paginado)
-GET {{host}}/equipamentos?page=0&size=10
+GET {{host}}/api/equipamentos?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Obter equipamento por ID
-GET {{host}}/equipamentos/{{equipamentoId}}
+GET {{host}}/api/equipamentos/{{equipamentoId}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Atualizar equipamento
-PUT {{host}}/equipamentos/{{equipamentoId}}
+PUT {{host}}/api/equipamentos/{{equipamentoId}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -47,20 +47,20 @@ Authorization: Bearer {{token}}
 }
 
 ### Excluir equipamento
-DELETE {{host}}/equipamentos/{{equipamentoId}}
+DELETE {{host}}/api/equipamentos/{{equipamentoId}}
 Authorization: Bearer {{token}}
 
 ### Buscar equipamentos por nome
-GET {{host}}/equipamentos/nome/pulverizador?page=0&size=10
+GET {{host}}/api/equipamentos/nome/pulverizador?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Buscar equipamentos por fabricante
-GET {{host}}/equipamentos/fabricante/Jacto?page=0&size=10
+GET {{host}}/api/equipamentos/fabricante/Jacto?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Buscar equipamentos por modelo
-GET {{host}}/equipamentos/modelo/Uniport%203030?page=0&size=10
+GET {{host}}/api/equipamentos/modelo/Uniport%203030?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{token}}

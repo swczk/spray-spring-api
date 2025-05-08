@@ -18,7 +18,7 @@ import java.util.UUID;
 @RestController
 @SecurityRequirement(name = "bearerAuth")
 @Tag(name = "Tipo Aplicação", description = "endpoints de tipos de aplicação")
-@RequestMapping(value = "/tipos-aplicacao", produces = "application/json")
+@RequestMapping(value = "/api/tipos-aplicacao", produces = "application/json")
 public class TipoAplicacaoController {
     private final TipoAplicacaoRepository tipoAplicacaoRepository;
 
