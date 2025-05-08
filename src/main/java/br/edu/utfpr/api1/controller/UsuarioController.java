@@ -13,7 +13,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
+@SecurityRequirement(name = "bearerAuth")
+@Tag(name = "Usuário", description = "endpoints de usuários")
 @RequestMapping(value = "/usuarios", produces = "application/json")
 public class UsuarioController {
     private final UsuarioRepository usuarioRepository;
@@ -22,11 +28,13 @@ public class UsuarioController {
         this.usuarioRepository = usuarioRepository;
     }
 
+    @Operation(summary = "Listar usuários",description = "Retorna uma lista paginada de usuários.")
     @GetMapping({ "", "/" })
     public Page<Usuario> getAll(Pageable pageable) {
         return usuarioRepository.findAll(pageable);
     }
 
+    @Operation(summary = "Buscar usuário por ID",description = "Retorna um usuário específico pelo ID.")
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> getById(@PathVariable UUID id) {
         return usuarioRepository.findById(id)
@@ -34,6 +42,7 @@ public class UsuarioController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @Operation(summary = "Criar usuário",description = "Cria um novo usuário.")
     @PostMapping({ "", "/" })
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Usuario> create(@Valid @RequestBody Usuario usuario) {
@@ -47,6 +56,7 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioRepository.save(usuario));
     }
 
+    @Operation(summary = "Atualizar usuário",description = "Atualiza um usuário existente.")
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> update(@PathVariable UUID id, @Valid @RequestBody Usuario usuario) {
         if (!usuarioRepository.existsById(id)) {
@@ -68,6 +78,7 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioRepository.save(usuario));
     }
 
+    @Operation(summary = "Deletar usuário",description = "Deleta um usuário pelo ID.")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         if (!usuarioRepository.existsById(id)) {
@@ -77,6 +88,7 @@ public class UsuarioController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "Atualizar o status de um usuário",description = "Atualizar o status de um usuário (ativo/inativo) pelo ID.")  
     @PatchMapping("/{id}/status")
     public ResponseEntity<Usuario> updateStatus(
             @PathVariable UUID id,
