@@ -4,15 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
-
-import com.fasterxml.jackson.databind.JsonNode;
-
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
@@ -28,12 +20,9 @@ public class JwtTokenProvider {
    @Value("${aws.cognito.url}")
    private String cognitoUrl;
 
-   private final RestTemplate restTemplate;
-   private final Map<String, String> jwkCache = new HashMap<>();
    private final ObjectMapper objectMapper = new ObjectMapper();
 
-   public JwtTokenProvider(RestTemplate restTemplate) {
-      this.restTemplate = restTemplate;
+   public JwtTokenProvider() {
    }
 
    public Map<String, Object> parseToken(String token) {
@@ -46,7 +35,9 @@ public class JwtTokenProvider {
          Base64.Decoder decoder = Base64.getUrlDecoder();
          String payload = new String(decoder.decode(chunks[1]));
 
-         return objectMapper.readValue(payload, Map.class);
+         @SuppressWarnings("unchecked")
+         Map<String, Object> result = objectMapper.readValue(payload, Map.class);
+         return result;
 
       } catch (Exception e) {
          logger.error("Error parsing JWT token", e);

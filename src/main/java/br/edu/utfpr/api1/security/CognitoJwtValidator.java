@@ -3,7 +3,7 @@ package br.edu.utfpr.api1.security;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.jwk.source.JWKSource;
-import com.nimbusds.jose.jwk.source.RemoteJWKSet;
+import com.nimbusds.jose.jwk.source.JWKSourceBuilder;
 import com.nimbusds.jose.proc.BadJOSEException;
 import com.nimbusds.jose.proc.JWSKeySelector;
 import com.nimbusds.jose.proc.JWSVerificationKeySelector;
@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 import java.text.ParseException;
 
 @Service
@@ -33,7 +33,7 @@ public class CognitoJwtValidator {
       this.jwtProcessor = new DefaultJWTProcessor<>();
 
       // Configure the JWT processor with a remote JWK source
-      JWKSource<SecurityContext> jwkSource = new RemoteJWKSet<>(new URL(jwkUrl));
+      JWKSource<SecurityContext> jwkSource = JWKSourceBuilder.create(URI.create(jwkUrl).toURL()).build();
       JWSAlgorithm algorithm = JWSAlgorithm.RS256; // Cognito uses RS256
       JWSKeySelector<SecurityContext> keySelector = new JWSVerificationKeySelector<>(algorithm, jwkSource);
       jwtProcessor.setJWSKeySelector(keySelector);

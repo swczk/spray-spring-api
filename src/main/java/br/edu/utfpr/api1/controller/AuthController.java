@@ -7,6 +7,7 @@ import br.edu.utfpr.api1.security.JwtTokenProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClientException;
@@ -66,15 +67,16 @@ public class AuthController {
 
          logger.info("Sending request to Cognito: {}", requestBody);
 
-         ResponseEntity<Map> response = restTemplate.exchange(
+         ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
                cognitoUrl,
                HttpMethod.POST,
                request,
-               Map.class);
+               new ParameterizedTypeReference<Map<String, Object>>() {});
 
          logger.debug("Response from Cognito: {}", response.getBody());
 
          if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+            @SuppressWarnings("unchecked")
             Map<String, Object> authResult = (Map<String, Object>) response.getBody().get("AuthenticationResult");
 
             if (authResult != null) {
@@ -164,13 +166,14 @@ public class AuthController {
          // Log the request for debugging
          logger.info("Refresh token request: {}", requestBody);
 
-         ResponseEntity<Map> response = restTemplate.exchange(
+         ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
                cognitoUrl,
                HttpMethod.POST,
                request,
-               Map.class);
+               new ParameterizedTypeReference<Map<String, Object>>() {});
 
          if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+            @SuppressWarnings("unchecked")
             Map<String, Object> authResult = (Map<String, Object>) response.getBody().get("AuthenticationResult");
 
             if (authResult != null) {

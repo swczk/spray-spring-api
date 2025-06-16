@@ -13,7 +13,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -36,7 +35,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
          if (jwt != null && jwtTokenProvider.validateToken(jwt)) {
             String username = jwtTokenProvider.extractUsername(jwt);
-            Map<String, Object> claims = jwtTokenProvider.parseToken(jwt);
 
             // Set the authentication in the security context
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
