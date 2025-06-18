@@ -9,7 +9,7 @@ pipeline {
 	stages {
 		stage('Checkout') {
 			steps {
-				git 'https://github.com/swczk/spray-spring-api.git'
+				git branch: 'main', url: 'https://github.com/swczk/spray-spring-api.git'
 			}
 		}
 		stage('Build Docker Image') {
