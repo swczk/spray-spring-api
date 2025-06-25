@@ -17,8 +17,8 @@ API REST desenvolvida com Spring Boot para gerenciamento de aplicações de pulv
 ## 📂 Estrutura do Projeto
 
 ```
-backend-spring/
-├── src/main/java/br/edu/utfpr/api1/
+spring-api/
+├── src/main/java/br/edu/utfpr/springapi/
 │   ├── controller/          # Controllers REST
 │   │   ├── AplicacaoController.java
 │   │   ├── AuthController.java
