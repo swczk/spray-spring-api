@@ -1,11 +1,14 @@
 package br.edu.utfpr.springapi.controller;
 
 import br.edu.utfpr.springapi.dto.AplicacaoStatusDTO;
+import br.edu.utfpr.springapi.enums.EventType;
+import br.edu.utfpr.springapi.mapper.AplicacaoMapper;
 import br.edu.utfpr.springapi.model.Aplicacao;
 import br.edu.utfpr.springapi.repository.AplicacaoRepository;
 import br.edu.utfpr.springapi.repository.EquipamentoRepository;
 import br.edu.utfpr.springapi.repository.TalhaoRepository;
 import br.edu.utfpr.springapi.repository.TipoAplicacaoRepository;
+import br.edu.utfpr.springapi.service.MessageProducerService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
@@ -30,16 +33,22 @@ public class AplicacaoController {
     private final TalhaoRepository talhaoRepository;
     private final EquipamentoRepository equipamentoRepository;
     private final TipoAplicacaoRepository tipoAplicacaoRepository;
+    private final MessageProducerService messageProducerService;
+    private final AplicacaoMapper aplicacaoMapper;
 
     AplicacaoController(
             AplicacaoRepository aplicacaoRepository,
             TalhaoRepository talhaoRepository,
             EquipamentoRepository equipamentoRepository,
-            TipoAplicacaoRepository tipoAplicacaoRepository) {
+            TipoAplicacaoRepository tipoAplicacaoRepository,
+            MessageProducerService messageProducerService,
+            AplicacaoMapper aplicacaoMapper) {
         this.aplicacaoRepository = aplicacaoRepository;
         this.talhaoRepository = talhaoRepository;
         this.equipamentoRepository = equipamentoRepository;
         this.tipoAplicacaoRepository = tipoAplicacaoRepository;
+        this.messageProducerService = messageProducerService;
+        this.aplicacaoMapper = aplicacaoMapper;
     }
 
     @Operation(summary = "Listar aplicações", description = "Retorna uma lista paginada de aplicações.")
@@ -80,7 +89,16 @@ public class AplicacaoController {
             }
         }
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(aplicacaoRepository.save(aplicacao));
+        Aplicacao savedAplicacao = aplicacaoRepository.save(aplicacao);
+        
+        // Enviar evento de criação
+        messageProducerService.sendApplicationEvent(
+            EventType.APPLICATION_CREATED,
+            aplicacaoMapper.toDTO(savedAplicacao),
+            "system" // TODO: Pegar do contexto de autenticação
+        );
+        
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedAplicacao);
     }
 
     @Operation(summary = "Atualizar aplicação", description = "Atualiza uma aplicação existente pelo ID.")
@@ -110,17 +128,35 @@ public class AplicacaoController {
         }
 
         aplicacao.setId(id);
-        return ResponseEntity.ok(aplicacaoRepository.save(aplicacao));
+        Aplicacao updatedAplicacao = aplicacaoRepository.save(aplicacao);
+        
+        // Enviar evento de atualização
+        messageProducerService.sendApplicationEvent(
+            EventType.APPLICATION_UPDATED,
+            aplicacaoMapper.toDTO(updatedAplicacao),
+            "system" // TODO: Pegar do contexto de autenticação
+        );
+        
+        return ResponseEntity.ok(updatedAplicacao);
     }
 
     @Operation(summary = "Deletar aplicação", description = "Deleta uma aplicação existente pelo ID.")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
-        if (!aplicacaoRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
-        aplicacaoRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return aplicacaoRepository.findById(id)
+                .map(aplicacao -> {
+                    aplicacaoRepository.deleteById(id);
+                    
+                    // Enviar evento de exclusão
+                    messageProducerService.sendApplicationEvent(
+                        EventType.APPLICATION_DELETED,
+                        aplicacaoMapper.toDTO(aplicacao),
+                        "system" // TODO: Pegar do contexto de autenticação
+                    );
+                    
+                    return ResponseEntity.noContent().<Void>build();
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @Operation(summary = "Buscar aplicações por talhão", description = "Retorna uma lista paginada de aplicações filtradas pelo talhão.")
@@ -161,13 +197,30 @@ public class AplicacaoController {
 
         return aplicacaoRepository.findById(id)
                 .map(aplicacao -> {
+                    boolean statusChanged = !aplicacao.getFinalizada().equals(statusDto.getFinalizada());
+                    
                     aplicacao.setFinalizada(statusDto.getFinalizada());
 
                     if (statusDto.getFinalizada()) {
                         aplicacao.setDataFim(LocalDateTime.now());
                     }
 
-                    return ResponseEntity.ok(aplicacaoRepository.save(aplicacao));
+                    Aplicacao updatedAplicacao = aplicacaoRepository.save(aplicacao);
+                    
+                    // Enviar evento baseado no status
+                    if (statusChanged) {
+                        EventType eventType = statusDto.getFinalizada() ? 
+                            EventType.APPLICATION_COMPLETED : 
+                            EventType.APPLICATION_STATUS_UPDATED;
+                            
+                        messageProducerService.sendApplicationEvent(
+                            eventType,
+                            aplicacaoMapper.toDTO(updatedAplicacao),
+                            "system" // TODO: Pegar do contexto de autenticação
+                        );
+                    }
+                    
+                    return ResponseEntity.ok(updatedAplicacao);
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
